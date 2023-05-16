@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginBottom="488dp"
-        android:text="Enter text here"
+        android:background="#bcc3cf"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,13 +31,14 @@
         android:gravity="center_horizontal" />
 
     <Button
-        android:id="@+id/ButtonToActivity1"
+        android:id="@+id/ButtonToActivity"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="412dp"
         android:text="Button To Main Activity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 

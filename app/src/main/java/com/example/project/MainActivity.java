@@ -15,7 +15,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView SharedText;
     private Button button;
 
-    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREF_NAME = "myPref";
+    private static final String KEY_TEXT = "myText";
+
+    private String SavedText;
 
 
     @Override
@@ -26,22 +29,30 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         SharedText = findViewById(R.id.TextViewTop);
-
         button = (Button) findViewById(R.id.ButtonToActivity2);
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openSecondActivity();
+
             }
         });
 
     }
 
+    public void onResume() {
+        super.onResume();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+
+        SavedText = sharedPreferences.getString(KEY_TEXT,"");
+
+        SharedText.setText("Your text: " + SavedText);
+    }
+
     private void openSecondActivity() {
 
-        Intent secondActivityIntent = new Intent(getBaseContext(), SecondActivity.class);
-
+        Intent secondActivityIntent = new Intent(MainActivity.this, SecondActivity.class);
         startActivity(secondActivityIntent);
 
 
