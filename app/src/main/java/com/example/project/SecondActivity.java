@@ -15,7 +15,6 @@ import androidx.appcompat.widget.Toolbar;
 public class SecondActivity extends AppCompatActivity {
 
     private EditText EditField;
-    private TextView TextView;
     private Button buttonToMain;
 
 
@@ -30,7 +29,6 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second);
 
         EditField = (EditText) findViewById(R.id.EditTextField);
-        TextView = (TextView) findViewById(R.id.TextViewSecond);
         buttonToMain = (Button) findViewById(R.id.ButtonToActivity);
 
         buttonToMain.setOnClickListener(new View.OnClickListener() {

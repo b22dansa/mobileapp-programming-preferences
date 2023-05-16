@@ -1,42 +1,51 @@
 
 # Rapport
 
-**Skriv din rapport här!**
+**Shared preferences**
 
-_Du kan ta bort all text som finns sedan tidigare_.
+Detta uppgift handlar om att läsa av data i SecondActivity och sedan spara den och visa upp i MainActivity.
 
-## Följande grundsyn gäller dugga-svar:
+SecondActivity klass var skapad samt layout activity_second och activity_main. I layout implementerades rader så som TextView och EditText 
+för att ta hand om inmatningar och visa upp dem senare. 
 
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
+I SecondActivity klass var EditText och buttonToMain definierat.
 
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
-
+Sedan var SHARED_PREF_NAME och KEY_TEXT definierat som kommer att vara "nycklar" till SharedPreferences.
 ```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
+private static final String SHARED_PREF_NAME = "myPref";
+private static final String KEY_TEXT = "myText";
+```
+
+När använder har skrivit in text i EditText och tryckt på buttonToMain kommer data att sparas i sharedPreferences och sedan kommer SecondActivity att "avslutas".
+```
+buttonToMain.setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View view) {
+
+                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(KEY_TEXT,EditField.getText().toString());
+                editor.commit();
+
+                finish();
+            }
+        });
+```
+När SecondActivity avslutas kommer MainActivity att köra onResume metod vilken i sin tur kommer att ta data från sharedPreferences 
+och visa upp den i TextView SharedText.
+```
+public void onResume() {
+        super.onResume();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+
+        SavedText = sharedPreferences.getString(KEY_TEXT,"");
+
+        SharedText.setText("Your text: " + SavedText);
     }
-}
 ```
 
-Bilder läggs i samma mapp som markdown-filen.
 
-![](android.png)
-
-Läs gärna:
-
-- Boulos, M.N.K., Warren, J., Gong, J. & Yue, P. (2010) Web GIS in practice VIII: HTML5 and the canvas element for interactive online mapping. International journal of health geographics 9, 14. Shin, Y. &
-- Wunsche, B.C. (2013) A smartphone-based golf simulation exercise game for supporting arthritis patients. 2013 28th International Conference of Image and Vision Computing New Zealand (IVCNZ), IEEE, pp. 459–464.
-- Wohlin, C., Runeson, P., Höst, M., Ohlsson, M.C., Regnell, B., Wesslén, A. (2012) Experimentation in Software Engineering, Berlin, Heidelberg: Springer Berlin Heidelberg.
+Bilder från appen:
+![](Screenshot_Second.png)
+![](Screenshot_Main.png)
